@@ -78,47 +78,27 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
             switch (definition.type) {
                 case 'Area': {
                     const series = instance.addAreaSeries(definition.options);
-                    series.setData(definition.data);
-                    setupCommonSeriesOptions(series, definition);
-                    if (definition.ref) {
-                        definition.ref(series);
-                    }
+                    setupSeries(series, definition);
                     break;
                 }
                 case 'Bar': {
                     const series = instance.addBarSeries(definition.options);
-                    series.setData(definition.data);
-                    setupCommonSeriesOptions(series, definition);
-                    if (definition.ref) {
-                        definition.ref(series);
-                    }
+                    setupSeries(series, definition);
                     break;
                 }
                 case 'Candlestick': {
                     const series = instance.addCandlestickSeries(definition.options);
-                    series.setData(definition.data);
-                    setupCommonSeriesOptions(series, definition);
-                    if (definition.ref) {
-                        definition.ref(series);
-                    }
+                    setupSeries(series, definition);
                     break;
                 }
                 case 'Histogram': {
                     const series = instance.addHistogramSeries(definition.options);
-                    series.setData(definition.data);
-                    setupCommonSeriesOptions(series, definition);
-                    if (definition.ref) {
-                        definition.ref(series);
-                    }
+                    setupSeries(series, definition);
                     break;
                 }
                 case 'Line': {
                     const series = instance.addLineSeries(definition.options);
-                    series.setData(definition.data);
-                    setupCommonSeriesOptions(series, definition);
-                    if (definition.ref) {
-                        definition.ref(series);
-                    }
+                    setupSeries(series, definition);
                     break;
                 }
             }
@@ -193,15 +173,6 @@ function assert(condition: boolean, message?: string): asserts condition {
     }
 }
 
-function setupCommonSeriesOptions(series: ISeriesApi<SeriesType>, definition: SeriesInitialOptions<SeriesType>) {
-    if (definition.markers) {
-        series.setMarkers(definition.markers);
-    }
-    if (definition.priceLines) {
-        setupPriceLines(series, definition.priceLines);
-    }
-}
-
 function setupPriceLines(series: ISeriesApi<SeriesType>, priceLines: PriceLineInitialOptions[]): void {
     for (const definition of priceLines) {
         // TODO: Nominal<number, 'BarPrice'> problem
@@ -209,5 +180,24 @@ function setupPriceLines(series: ISeriesApi<SeriesType>, priceLines: PriceLineIn
         if (definition.ref) {
             definition.ref(line);
         }
+    }
+}
+
+type SetupSeriesParams<T> = T extends SeriesType ? [
+  ISeriesApi<T>,
+  SeriesInitialOptions<T>
+] : never;
+
+function setupSeries<T>(...args: SetupSeriesParams<T>): void {
+    const [series, definition] = args;
+    series.setData(definition.data);
+    if (definition.markers) {
+        series.setMarkers(definition.markers);
+    }
+    if (definition.priceLines) {
+        setupPriceLines(series, definition.priceLines);
+    }
+    if (definition.ref) {
+        definition.ref(series);
     }
 }
