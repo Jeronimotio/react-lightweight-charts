@@ -20,6 +20,7 @@ const initialSeries: SeriesInitialOptions<SeriesType>[] = [
             { time: "2018-12-30", value: 22.68 },
             { time: "2018-12-31", value: 22.67 },
         ],
+        ref: (series) => console.log('Area created:', series),
     },
     {
         type: 'Line',
@@ -49,6 +50,7 @@ const initialSeries: SeriesInitialOptions<SeriesType>[] = [
                 id: 'id4',
             },
         ],
+        ref: (series) => console.log('Line created:', series),
     },
     {
         type: 'Bar',
@@ -64,7 +66,8 @@ const initialSeries: SeriesInitialOptions<SeriesType>[] = [
                     lineWidth: 2,
                     lineStyle: LINE_STYLE.DOTTED,
                     axisLabelVisible: true,
-                }
+                },
+                ref: (priceLine) => console.log('Price line created:', priceLine),
             },
             {
                 options: {
@@ -73,9 +76,11 @@ const initialSeries: SeriesInitialOptions<SeriesType>[] = [
                     lineWidth: 2,
                     lineStyle: LINE_STYLE.DASHED,
                     axisLabelVisible: true,
-                }
+                },
+                ref: (priceLine) => console.log('Price line created:', priceLine),
             }
         ],
+        ref: (series) => console.log('Bar created:', series),
     }
 ];
 
