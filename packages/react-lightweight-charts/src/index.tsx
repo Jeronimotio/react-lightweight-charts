@@ -25,7 +25,7 @@ export type PriceLineInitialOptions = {
     ref?: (ref: IPriceLine) => void;
 }
 
-export type SeriesInitialOptions<T> = T extends SeriesType ? {
+export type SeriesInitialOptions<T extends SeriesType> = {
     type: T;
     data: SeriesDataItemTypeMap[T][];
     options?: SeriesPartialOptionsMap[T];
@@ -33,7 +33,7 @@ export type SeriesInitialOptions<T> = T extends SeriesType ? {
 } & {
     markers?: SeriesMarker<Time>[];
     priceLines?: PriceLineInitialOptions[];
-} : never;
+};
 
 export type ChartProps = {
     className?: string;
@@ -183,13 +183,7 @@ function setupPriceLines(series: ISeriesApi<SeriesType>, priceLines: PriceLineIn
     }
 }
 
-type SetupSeriesParams<T> = T extends SeriesType ? [
-  ISeriesApi<T>,
-  SeriesInitialOptions<T>
-] : never;
-
-function setupSeries<T>(...args: SetupSeriesParams<T>): void {
-    const [series, definition] = args;
+function setupSeries<T extends SeriesType>(series: ISeriesApi<T>, definition: SeriesInitialOptions<T>): void {
     series.setData(definition.data);
     if (definition.markers) {
         series.setMarkers(definition.markers);
