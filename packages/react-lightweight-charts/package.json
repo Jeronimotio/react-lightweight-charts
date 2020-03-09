@@ -1,0 +1,32 @@
+{
+  "name": "react-lightweight-charts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "lightweight-charts": "^2.0.0"
+  },
+  "devDependencies": {
+    "typescript": "~3.7.2" ,
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "scripts": {
+    "compile": "tsc",
+    "compile-watch": "tsc --watch"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "publishConfig": {
+    "directory": "dist"
+  }
+}

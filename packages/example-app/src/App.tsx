@@ -1,7 +1,7 @@
 import React from 'react';
 import {SeriesType} from 'lightweight-charts';
-import {Chart, SeriesInitialOptions} from './wrapper/lightweight-charts';
-import {LINE_STYLE, PRICE_SCALE_MODE} from './wrapper/utils';
+import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
+import {LINE_STYLE, PRICE_SCALE_MODE} from 'react-lightweight-charts/utils';
 
 import styles from './App.module.css';
 
