@@ -4,9 +4,19 @@ import {
     ChartOptions,
     createChart,
     DeepPartial,
-    IChartApi, IPriceLine, ISeriesApi, MouseEventHandler, PriceLineOptions, SeriesDataItemTypeMap, SeriesMarker,
+    IChartApi,
+    IPriceLine,
+    ISeriesApi,
+    MouseEventHandler,
+    MouseEventParams,
+    PriceLineOptions,
+    SeriesDataItemTypeMap,
+    SeriesMarker,
     SeriesPartialOptionsMap,
-    SeriesType, Time, TimeRangeChangeEventHandler
+    SeriesType,
+    Time,
+    TimeRange,
+    TimeRangeChangeEventHandler
 } from 'lightweight-charts';
 
 export type PriceLineInitialOptions = {
@@ -113,19 +123,17 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
                 }
             }
         }
-
-        this.updateSubscriptions(null, this.props);
+        this.subscribeEvents();
     }
 
     componentDidUpdate(prevProps: Readonly<ChartProps>, prevState: Readonly<ChartState>, snapshot?: any): void {
         if (prevState.options !== this.state.options) {
             this.api.applyOptions(this.state.options ?? {});
         }
-        this.updateSubscriptions(prevProps, this.props);
     }
 
     componentWillUnmount(): void {
-        this.updateSubscriptions(this.props, null);
+        this.unsubscribeEvents();
 
         assert(this.instance !== null);
         this.instance.remove();
@@ -148,25 +156,33 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
         this.container = ref;
     }
 
-    private updateSubscriptions(prevProps: ChartProps | null, nextProps: ChartProps | null): void {
-        if (prevProps?.onClick) {
-            this.api.unsubscribeClick(prevProps.onClick);
-        }
-        if (prevProps?.onCrosshairMove) {
-            this.api.unsubscribeCrosshairMove(prevProps.onCrosshairMove);
-        }
-        if (prevProps?.onVisibleTimeRangeChange) {
-            this.api.unsubscribeVisibleTimeRangeChange(prevProps.onVisibleTimeRangeChange);
-        }
+    private subscribeEvents(): void {
+        this.api.subscribeClick(this._handleOnClick);
+        this.api.subscribeCrosshairMove(this._handleOnCrosshairMove);
+        this.api.subscribeVisibleTimeRangeChange(this._handleOnVisibleTimeRangeChange);
+    }
 
-        if (nextProps?.onClick) {
-            this.api.subscribeClick(nextProps.onClick);
+    private unsubscribeEvents(): void {
+        this.api.unsubscribeClick(this._handleOnClick);
+        this.api.unsubscribeCrosshairMove(this._handleOnCrosshairMove);
+        this.api.unsubscribeVisibleTimeRangeChange(this._handleOnVisibleTimeRangeChange);
+    }
+
+    private _handleOnClick: MouseEventHandler = (params: MouseEventParams) => {
+        if (this.props.onClick) {
+            this.props.onClick(params);
         }
-        if (nextProps?.onCrosshairMove) {
-            this.api.subscribeCrosshairMove(nextProps.onCrosshairMove);
+    }
+
+    private _handleOnCrosshairMove: MouseEventHandler = (params: MouseEventParams) => {
+        if (this.props.onCrosshairMove) {
+            this.props.onCrosshairMove(params);
         }
-        if (nextProps?.onVisibleTimeRangeChange) {
-            this.api.subscribeVisibleTimeRangeChange(nextProps.onVisibleTimeRangeChange);
+    }
+
+    private _handleOnVisibleTimeRangeChange: TimeRangeChangeEventHandler = (timeRange: TimeRange | null) => {
+        if (this.props.onVisibleTimeRangeChange) {
+            this.props.onVisibleTimeRangeChange(timeRange);
         }
     }
 }
