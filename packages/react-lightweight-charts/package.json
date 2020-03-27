@@ -22,7 +22,6 @@
     "react-dom": "^16.13.0"
   },
   "scripts": {
-    "prepare": "npm run compile",
     "compile": "tsc",
     "compile-watch": "tsc --watch"
   },
