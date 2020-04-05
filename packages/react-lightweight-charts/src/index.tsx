@@ -137,30 +137,30 @@ export class Chart extends React.PureComponent<ChartProps, ChartState> {
     }
 
     private subscribeEvents(): void {
-        this.api.subscribeClick(this._handleOnClick);
-        this.api.subscribeCrosshairMove(this._handleOnCrosshairMove);
-        this.api.subscribeVisibleTimeRangeChange(this._handleOnVisibleTimeRangeChange);
+        this.api.subscribeClick(this.handleOnClick);
+        this.api.subscribeCrosshairMove(this.handleOnCrosshairMove);
+        this.api.subscribeVisibleTimeRangeChange(this.handleOnVisibleTimeRangeChange);
     }
 
     private unsubscribeEvents(): void {
-        this.api.unsubscribeClick(this._handleOnClick);
-        this.api.unsubscribeCrosshairMove(this._handleOnCrosshairMove);
-        this.api.unsubscribeVisibleTimeRangeChange(this._handleOnVisibleTimeRangeChange);
+        this.api.unsubscribeClick(this.handleOnClick);
+        this.api.unsubscribeCrosshairMove(this.handleOnCrosshairMove);
+        this.api.unsubscribeVisibleTimeRangeChange(this.handleOnVisibleTimeRangeChange);
     }
 
-    private _handleOnClick: MouseEventHandler = (params: MouseEventParams) => {
+    private handleOnClick: MouseEventHandler = (params: MouseEventParams) => {
         if (this.props.onClick) {
             this.props.onClick(params);
         }
     }
 
-    private _handleOnCrosshairMove: MouseEventHandler = (params: MouseEventParams) => {
+    private handleOnCrosshairMove: MouseEventHandler = (params: MouseEventParams) => {
         if (this.props.onCrosshairMove) {
             this.props.onCrosshairMove(params);
         }
     }
 
-    private _handleOnVisibleTimeRangeChange: TimeRangeChangeEventHandler = (timeRange: TimeRange | null) => {
+    private handleOnVisibleTimeRangeChange: TimeRangeChangeEventHandler = (timeRange: TimeRange | null) => {
         if (this.props.onVisibleTimeRangeChange) {
             this.props.onVisibleTimeRangeChange(timeRange);
         }
