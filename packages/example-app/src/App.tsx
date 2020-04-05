@@ -4,6 +4,7 @@ import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
 import {LINE_STYLE, PRICE_SCALE_MODE} from 'react-lightweight-charts/utils';
 import {RealtimeExample} from './samples/realtime';
 import {VolumeExample} from './samples/volume';
+import {PercentageScaleExample} from './samples/percentage-scale';
 
 import styles from './App.module.css';
 
@@ -106,6 +107,7 @@ function App() {
             />
             <VolumeExample/>
             <RealtimeExample/>
+            <PercentageScaleExample/>
         </React.Fragment>
     );
 }
