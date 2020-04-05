@@ -8,6 +8,33 @@ import {PercentageScaleExample} from './samples/percentage-scale';
 
 import styles from './App.module.css';
 
+function App() {
+    return (
+        <React.Fragment>
+            <Chart
+                className={styles.chart}
+                style={{display: 'inline-block'}}
+                options={{
+                    width: 600,
+                    height: 300,
+                    priceScale: {
+                        mode: PRICE_SCALE_MODE.NORMAL,
+                    },
+                }}
+                initialSeries={initialSeries}
+                onClick={(...args) => console.log('chart click', args)}
+                onCrosshairMove={(...args) => console.log('crosshair move', args)}
+                onVisibleTimeRangeChange={(...args) => console.log('time range change', args)}
+            />
+            <VolumeExample/>
+            <RealtimeExample/>
+            <PercentageScaleExample/>
+        </React.Fragment>
+    );
+}
+
+export default App;
+
 const initialSeries: SeriesInitialOptions<SeriesType>[] = [
     {
         type: 'Area',
@@ -86,30 +113,3 @@ const initialSeries: SeriesInitialOptions<SeriesType>[] = [
         ref: (series) => console.log('Bar created:', series),
     }
 ];
-
-function App() {
-    return (
-        <React.Fragment>
-            <Chart
-                className={styles.chart}
-                style={{display: 'inline-block'}}
-                options={{
-                    width: 600,
-                    height: 300,
-                    priceScale: {
-                        mode: PRICE_SCALE_MODE.NORMAL,
-                    },
-                }}
-                initialSeries={initialSeries}
-                onClick={(...args) => console.log('chart click', args)}
-                onCrosshairMove={(...args) => console.log('crosshair move', args)}
-                onVisibleTimeRangeChange={(...args) => console.log('time range change', args)}
-            />
-            <VolumeExample/>
-            <RealtimeExample/>
-            <PercentageScaleExample/>
-        </React.Fragment>
-    );
-}
-
-export default App;

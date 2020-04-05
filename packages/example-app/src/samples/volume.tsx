@@ -2,6 +2,15 @@ import React from 'react';
 import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
 import {SeriesType} from "lightweight-charts";
 
+export function VolumeExample(props: object): JSX.Element {
+    return (
+        <Chart
+            options={OPTIONS}
+            initialSeries={INITIAL_SERIES}
+        />
+    );
+}
+
 const OPTIONS = {
     width: 600,
     height: 300,
@@ -356,12 +365,3 @@ const INITIAL_SERIES: SeriesInitialOptions<SeriesType>[] = [
         ],
     },
 ];
-
-export function VolumeExample(props: object): JSX.Element {
-    return (
-        <Chart
-            options={OPTIONS}
-            initialSeries={INITIAL_SERIES}
-        />
-    );
-}
