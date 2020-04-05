@@ -10,7 +10,7 @@ import styles from './App.module.css';
 
 function App() {
     return (
-        <React.Fragment>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <Chart
                 className={styles.chart}
                 style={{display: 'inline-block'}}
@@ -26,10 +26,10 @@ function App() {
                 onCrosshairMove={(...args) => console.log('crosshair move', args)}
                 onVisibleTimeRangeChange={(...args) => console.log('time range change', args)}
             />
-            <VolumeExample/>
-            <RealtimeExample/>
-            <PercentageScaleExample/>
-        </React.Fragment>
+            <VolumeExample className={styles.chart}/>
+            <RealtimeExample className={styles.chart}/>
+            <PercentageScaleExample className={styles.chart}/>
+        </div>
     );
 }
 

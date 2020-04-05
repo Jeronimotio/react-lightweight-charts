@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useMemo, useRef} from 'react';
 import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
 import {CROSSHAIR_MODE} from 'react-lightweight-charts/utils';
 import {BarData, ISeriesApi, SeriesType} from 'lightweight-charts';
+import {ExampleProperties} from './example-properties';
 
 const OPTIONS = {
     width: 600,
@@ -21,7 +22,7 @@ interface TimePoint {
     day: number;
 }
 
-export function RealtimeExample(props: object): JSX.Element {
+export function RealtimeExample(props: ExampleProperties): JSX.Element {
     const candleSeries = useRef<ISeriesApi<'Candlestick'> | null>(null);
     const callback = useCallback((ref: ISeriesApi<'Candlestick'>) => candleSeries.current = ref, []);
     const series = useMemo(
@@ -118,6 +119,7 @@ export function RealtimeExample(props: object): JSX.Element {
 
     return (
         <Chart
+            {...props}
             options={OPTIONS}
             initialSeries={series}
         />

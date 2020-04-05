@@ -1,10 +1,12 @@
 import React from 'react';
 import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
-import {SeriesType} from "lightweight-charts";
+import {SeriesType} from 'lightweight-charts';
+import {ExampleProperties} from './example-properties';
 
-export function VolumeExample(props: object): JSX.Element {
+export function VolumeExample(props: ExampleProperties): JSX.Element {
     return (
         <Chart
+            {...props}
             options={OPTIONS}
             initialSeries={INITIAL_SERIES}
         />

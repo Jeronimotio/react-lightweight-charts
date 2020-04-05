@@ -2,10 +2,12 @@ import React from 'react';
 import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
 import {LINE_STYLE} from 'react-lightweight-charts/utils';
 import {SeriesType} from 'lightweight-charts';
+import {ExampleProperties} from './example-properties';
 
-export function PercentageScaleExample(props: object): JSX.Element {
+export function PercentageScaleExample(props: ExampleProperties): JSX.Element {
     return (
         <Chart
+            {...props}
             options={OPTIONS}
             initialSeries={INITIAL_SERIES}
         />
