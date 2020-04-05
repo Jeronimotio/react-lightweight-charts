@@ -2,7 +2,8 @@ import React from 'react';
 import {SeriesType} from 'lightweight-charts';
 import {Chart, SeriesInitialOptions} from 'react-lightweight-charts';
 import {LINE_STYLE, PRICE_SCALE_MODE} from 'react-lightweight-charts/utils';
-import {VolumeExample} from 'samples/volume';
+import {RealtimeExample} from './samples/realtime';
+import {VolumeExample} from './samples/volume';
 
 import styles from './App.module.css';
 
@@ -104,6 +105,7 @@ function App() {
                 onVisibleTimeRangeChange={(...args) => console.log('time range change', args)}
             />
             <VolumeExample/>
+            <RealtimeExample/>
         </React.Fragment>
     );
 }
